@@ -57,7 +57,7 @@ sudo systemctl start wg-quick@wg0
 sudo systemctl enable wg-quick@wg0
 ```
 
-Make sure that the ping from both ends of the wireguard work. Possible problems include not having firewall allow udp connection from Wireguard as Wireguard will always use UDP configuration.
+Make sure that the ping from both ends of the wireguard work. Possible problems include not having firewall allow UDP connection from Wireguard as Wireguard will only use UDP configuration.
 
 To forward the port from VPS to client, insert the IPtables below at the VPS only. Replace eth0 with whatever outward facing public IP the interface is found in the ifconfig.
 
@@ -84,7 +84,7 @@ sudo iptables -t nat -A POSTROUTING -o wg0 -p tcp --dport 22 -d 192.168.4.2 -j S
 Put the port enabled as below:
 
 ```
-sudo iptables -I INPUT -p tcp --dport 22 --syn -j ACCEPT  -------> Client
+sudo iptables -I INPUT -p tcp --dport 22 --syn -j ACCEPT  -----------> Client
 sudo iptables -I INPUT -p tcp --dport 22222 --syn -j ACCEPT  --------> Server
 ```
 
